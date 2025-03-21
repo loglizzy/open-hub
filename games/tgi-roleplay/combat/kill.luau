@@ -17,15 +17,16 @@ end)
 
 return {
     {
-        type = "dropdown",
-        name = "Select players to kill",
-        options = playersName
+        "Dropdown",
+        "Select players to kill",
+        {
+            options = playersName
+        }
     },
     {
-        type = "button",
-        name = "Craft selected weapon",
-        description = "Generates free materials and then crafts the weapon",
-        activated = function(f, dt)
+        "Button",
+        "Craft selected weapon",
+        function(f)
             for i, name in playersName do
                 
             end

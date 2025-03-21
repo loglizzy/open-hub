@@ -4,11 +4,11 @@ local function JSONDecode(data)
 end
 
 local function GetHTTPJSON(url)
-    return JSONDecode(game:HttpGet(url))
+    return JSONDecode(HTTPService:GetAsync(url))
 end
 
 local repo = "loglizzy/open-hub"
-local ui = loadstring(GetHTTPJSON(`{repo}/ui.luau`))()
+local ui = loadstring(game:HttpGet(`https://raw.githubusercontent.com/{repo}/main/ui.luau`))()
 table.foreach(ui, print)
 
 local apiRepoUrl = `https://api.github.com/repos/{repo}/`
