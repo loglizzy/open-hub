@@ -1,8 +1,25 @@
+local function GetStringLetters(str)
+    return string.gsub(str, "[^%a]", "")
+end
+
 local HTTPService = game:GetService("HttpService")
--- local cacheDir = "repoCache"
--- makefolder(cacheDir)
+local cacheDir = "cache"
+makefolder(cacheDir)
+
+cacheDir = `{cacheDir}/open-hub`
+makefolder(cacheDir)
+
 local function GetHTTPJSON(url)
-    return HTTPService:JSONDecode(game:HttpGet(url))
+    local file = `{cacheDir}/{GetStringLetters(url)}`
+    local body
+    if isfile(file) then 
+        body = readfile(file)
+    else
+        body = game:HttpGet(url)
+        writefile(file, body)
+    end
+
+    return HTTPService:JSONDecode(body)
 end
 
 local function GetBaseName(fileName)
@@ -29,11 +46,13 @@ local apiGameUrl = `{apiRepoUrl}/contents/games/tgi-roleplay`
 --     end
 -- end
 
--- Load UI categories
 local window = Finity.new(true)
 window.ChangeToggleKey(Enum.KeyCode.Semicolon)
+
+-- Load UI categories
 for i, categoryFile in GetHTTPJSON(apiGameUrl) do
     local categoryFileType = categoryFile.type
+    print(categoryFile)
     if categoryFileType == "dir" then
         local categoryName = GetFirstCaseUpperString(categoryFile.name)
         local category = window:Category(categoryName)
