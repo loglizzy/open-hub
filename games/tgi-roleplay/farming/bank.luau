@@ -1,4 +1,6 @@
-local BankDeposit = game.ReplicatedStorage.Remotes.BankDeposit
+local BankDeposit = game.ReplicatedStorage.Remotes:WaitForChild("BankDeposit", 10)
+assert(BankDeposit, "BankDeposit remote not found. Game is most likely to have been updated.")
+
 return {
     {
         "Checkbox",
