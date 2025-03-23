@@ -25,7 +25,7 @@ return {
     },
     {
         "Button",
-        "Craft selected weapon",
+        "Kill selected player(s)",
         function(f)
             for i, name in playersName do
                 

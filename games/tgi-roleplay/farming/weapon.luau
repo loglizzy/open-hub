@@ -1,7 +1,11 @@
+local selectedWeapon
 return {
     {
         "Dropdown",
         "Select weapon",
+        function(f, option)
+            selectedWeapon = option
+        end,
         {
             options = {
                 "G17",
@@ -12,9 +16,7 @@ return {
     {
         "Button",
         "Craft selected weapon",
-        "Generates free materials and then crafts the weapon",
-        function(f, state)
-            local selectedWeapon = f.farming.selectedWeapon
+        function(f)
             print(selectedWeapon)
         end
     }

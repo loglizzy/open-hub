@@ -7,9 +7,8 @@ local cacheDir = "cache"
 makefolder(cacheDir)
 
 cacheDir = `{cacheDir}/open-hub`
-makefolder(cacheDir)
 
-local function GetHTTPJSON(url)
+local function GetCachedHTTP(url)
     local file = `{cacheDir}/{GetStringLetters(url)}`
     local body
     if isfile(file) then 
@@ -18,6 +17,12 @@ local function GetHTTPJSON(url)
         body = game:HttpGet(url)
         writefile(file, body)
     end
+
+    return body
+end
+
+local function GetHTTPJSON(url)
+    local body = GetCachedHTTP(url)
 
     return HTTPService:JSONDecode(body)
 end
@@ -33,18 +38,39 @@ local function GetFirstCaseUpperString(str)
 end
 
 local repo = "loglizzy/open-hub"
+local apiRepoUrl = `https://api.github.com/repos/{repo}`
+local lastGamesSHA
+local lastGamesSHADir = `{cacheDir}/lastGamesSHA`
+if isfile(lastGamesSHADir) then
+    lastGamesSHA = readfile(lastGamesSHADir) 
+end
+
+for i, v in GetHTTPJSON(`{apiRepoUrl}/contents`) do
+    if v.name == "games" then
+        if v.sha ~= lastGamesSHA then
+            delfolder(cacheDir)
+
+            lastGamesSHA = v.sha
+            writefile(lastGamesSHADir, lastGamesSHA)
+
+            break
+        end
+    end
+end
+
+makefolder(cacheDir)
+
 local repoDownloadUrl = `https://raw.githubusercontent.com/{repo}/main`
 local Finity = loadstring(game:HttpGet(`{repoDownloadUrl}/ui.luau`))()
 
-local apiRepoUrl = `https://api.github.com/repos/{repo}`
 local placeId = game.PlaceId
 local apiGameUrl = `{apiRepoUrl}/contents/games/tgi-roleplay`
--- for gameName, gameInfo in GetHTTPJSON(`{repoDownloadUrl}/games.json`) do
---     if gameInfo.placeId == placeId then
---         apiGameUrl = `{apiRepoUrl}/contents/games/{gameName}`
---         break
---     end
--- end
+for gameName, gameInfo in GetHTTPJSON(`{repoDownloadUrl}/games.json`) do
+    if gameInfo.placeId == placeId then
+        apiGameUrl = `{apiRepoUrl}/contents/games/{gameName}`
+        break
+    end
+end
 
 local window = Finity.new(true)
 window.ChangeToggleKey(Enum.KeyCode.Semicolon)
@@ -52,7 +78,6 @@ window.ChangeToggleKey(Enum.KeyCode.Semicolon)
 -- Load UI categories
 for i, categoryFile in GetHTTPJSON(apiGameUrl) do
     local categoryFileType = categoryFile.type
-    print(categoryFile)
     if categoryFileType == "dir" then
         local categoryName = GetFirstCaseUpperString(categoryFile.name)
         local category = window:Category(categoryName)
@@ -78,11 +103,11 @@ for i, categoryFile in GetHTTPJSON(apiGameUrl) do
             -- Loads section features
             for i, v in feature do
                 local a, b, c = print(table.unpack(v))
-                print(a)
+                task.spawn(section.Cheat, section, a, b, c)
             end
         end
     -- Starts singleton
     elseif categoryFileType == "file" then
-        task.spawn(loadstring(game:HttpGet(categoryFile.download_url)))
+        task.spawn(loadstring(GetCachedHTTP(categoryFile.download_url)))
     end
 end
