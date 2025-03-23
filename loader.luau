@@ -66,6 +66,7 @@ local Finity = loadstring(game:HttpGet(`{repoDownloadUrl}/ui.luau`))()
 local placeId = game.PlaceId
 local apiGameUrl
 for gameName, gameInfo in GetHTTPJSON(`{repoDownloadUrl}/games.json`) do
+    print(gameInfo.placeId)
     if gameInfo.placeId == placeId then
         apiGameUrl = `{apiRepoUrl}/contents/games/{gameName}`
         break
