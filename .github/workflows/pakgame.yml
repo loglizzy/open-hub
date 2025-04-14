@@ -27,6 +27,8 @@ jobs:
               echo "Processing folder: $folder"
               game_package=$(basename "$folder")
               game_package="games/$parent_folder/$game_package.package"
+              echo "Creating game package: $game_package"
+              > "$game_package"
               for file in "$folder"*; do
                 echo "Adding file: $file to package"
                 file_length=$(wc -c < "$file")
