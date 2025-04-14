@@ -1,0 +1,22 @@
+name: Run Script on /games Change
+
+on:
+  push:
+    paths:
+      - 'games/**'  # Só roda se algo dentro de /games mudar
+    branches:
+      - main  # Altere se for outra branch
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Run Custom Script
+        run: |
+          modified_file=$(git diff --name-only HEAD^ HEAD | grep '^games/')
+          parent_folder=$(dirname "$modified_file" | cut -d'/' -f2)
+          echo "Parent folder: $parent_folder"
