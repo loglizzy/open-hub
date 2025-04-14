@@ -1,5 +1,6 @@
 # About
 Open source community script hub.
+Uses the [Finity](https://localsmail.gitbook.io/finity-docs) GUI Lib + Github free API to dynamically load game scripts.
 
 # How to add games
 1. Go to the `/games` directory.
