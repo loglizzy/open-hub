@@ -5,19 +5,21 @@ Open source community script hub.
 1. Add your game(ex: `/big-balls-game`) to the `/games` directory.
 2. Then create a category folder(ex: `/main`).
 3. Create a section inside the category folder(ex: `combat.luau`).
-4. Write your code inside that section script:
+4. Write cheats to your section:
 ```luau
 return {
     {
-        "Dropdown",
-        "Select balls size",
-        function(f, option)
+        "Dropdown", -- Cheat type
+        "Select balls size", -- Label text
+        function(f, option) -- Callback
             f.main.balls = option
         end,
+        -- Dropdown options
         {
             options = {"Big", "Small"}
         }
     },
+    
     {
         "Button",
         "Analyse balls",
