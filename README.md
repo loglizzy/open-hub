@@ -2,9 +2,10 @@
 Open source community script hub.
 
 # How to add games
-1. Add your game(ex: `/big-balls-game`) to the `/games` directory.
-2. Then create a category folder(ex: `/main`).
-3. Create a section inside the category folder(ex: `combat.luau`).
+1. Go to the `/games` directory.
+1. Add your game folder(ex: `/big-balls-game`).
+2. Create a category folder(ex: `/main`).
+3. Create a section(ex: `balls.luau`).
 4. Write cheats to your section:
 ```luau
 return {
