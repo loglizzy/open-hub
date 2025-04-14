@@ -13,7 +13,7 @@ return {
     {
         "Dropdown", -- Cheat type
         "Select balls size", -- Label text
-        function(f, option) -- Callback
+        function(f, option) -- UI callback
             f.main.balls = option
         end,
         -- Dropdown options
