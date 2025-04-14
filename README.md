@@ -8,7 +8,7 @@ I recommend to clone the repo in your local machine and use something like Githu
 1. Add your game folder(ex: `/big-balls-game`).
 2. Inside your new game, create a category folder(ex: `/main`).
 3. Now add a cheats section to it(ex: `balls.luau`).
-4. Write cheats to your section:
+4. Write cheats to your section script:
 ```luau
 return {
     {
