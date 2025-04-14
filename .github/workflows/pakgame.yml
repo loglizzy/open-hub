@@ -19,6 +19,16 @@ jobs:
 
       - name: Run Custom Script
         run: |
-          modified_file=$(git diff --name-only HEAD^ HEAD | grep '^games/')
-          parent_folder=$(dirname "$modified_file" | cut -d'/' -f2)
-          echo "Parent folder: $parent_folder"
+            modified_file=$(git diff --name-only HEAD^ HEAD | grep '^games/')
+            parent_folder=$(dirname "$modified_file" | cut -d'/' -f2)
+            echo "Parent folder: $parent_folder"
+
+            for folder in games/"$parent_folder"/*/; do
+              game_package=$(basename "$folder")
+              game_package="games/$parent_folder/$game_package.package"
+              for file in "$folder"*; do
+                file_length=$(wc -c < "$file")
+                printf "%08x" "$file_length" | xxd -r -p >> "$game_package"
+                cat "$file" >> "$game_package"
+              done
+            done
