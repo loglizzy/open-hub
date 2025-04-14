@@ -3,9 +3,9 @@ name: Run Script on /games Change
 on:
   push:
     paths:
-      - 'games/**'  # Só roda se algo dentro de /games mudar
+      - 'games/**'  # Only triggers if something in /games changes
     branches:
-      - main  # Altere se for outra branch
+      - main  # Adjust if it's another branch
 
 jobs:
   run-script:
@@ -14,6 +14,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 2  # Fetch enough history to access HEAD^
 
       - name: Run Custom Script
         run: |
