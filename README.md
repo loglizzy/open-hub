@@ -2,8 +2,10 @@
 Open source community script hub.
 Uses the [Finity](https://localsmail.gitbook.io/finity-docs) GUI Lib + Github free API to dynamically load games cheats.
 
-# Supported exploits
-Any exploit.
+# Usage
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/loglizzy/open-hub/refs/heads/main/loader.luau"))()
+```
 
 # How to add games
 I recommend to clone the repo in your local machine and use something like Github Desktop to pull the changes you make.
