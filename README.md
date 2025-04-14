@@ -35,5 +35,5 @@ return {
 ```
 
 ## Structure chart
-![image](https://github.com/user-attachments/assets/1c42aa96-16ba-43f2-b609-3e9b378c0264)
+![image](https://github.com/user-attachments/assets/195262a6-d800-4ff8-9ca5-006f6b04b195)
 
