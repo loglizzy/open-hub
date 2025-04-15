@@ -38,7 +38,7 @@ local function GetFirstCaseUpperString(str)
 end
 
 local repo = "loglizzy/open-hub"
-local apiRepoUrl = `https://api.github.com/repos/{repo}`
+local apiRepoUrl = `https://api.github.com/repos/{repo}/src`
 local lastGamesSHA
 local lastGamesSHADir = `{cacheDir}/lastGamesSHA`
 if isfile(lastGamesSHADir) then
@@ -60,7 +60,7 @@ end
 
 makefolder(cacheDir)
 
-local repoDownloadUrl = `https://raw.githubusercontent.com/{repo}/main`
+local repoDownloadUrl = `https://raw.githubusercontent.com/{repo}/main/src`
 local Finity = loadstring(game:HttpGet(`{repoDownloadUrl}/ui.luau`))()
 
 local placeId = game.PlaceId
